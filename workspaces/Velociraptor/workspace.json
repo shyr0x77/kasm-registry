@@ -1,0 +1,29 @@
+{
+  "friendly_name": "Velociraptor Lab",
+  "description": "Lance Instant Velociraptor dans une session Chrome Kasm isolée et jetable.",
+  "image_src": "velociraptor.svg",
+  "categories": [
+    "Security",
+    "Forensics"
+  ],
+  "architecture": [
+    "amd64"
+  ],
+  "docker_registry": "https://ghcr.io",
+  "cores": 2,
+  "memory": 4096,
+  "gpu_count": 0,
+  "cpu_allocation_method": "Inherit",
+  "run_config": {
+    "hostname": "kasm-velociraptor",
+    "shm_size": "2gb"
+  },
+  "notes": "Mode Instant Velociraptor : admin/password. Le serveur écoute uniquement dans le conteneur et les données disparaissent lorsque la session est supprimée.",
+  "compatibility": [
+    {
+      "version": "1.19.x",
+      "image": "ghcr.io/TON_COMPTE_GITHUB/kasm-velociraptor:1.19.0",
+      "uncompressed_size_mb": 5000
+    }
+  ]
+}
