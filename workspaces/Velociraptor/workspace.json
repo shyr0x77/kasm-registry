@@ -1,6 +1,6 @@
 {
-  "friendly_name": "Velociraptor Lab",
-  "description": "Lance Instant Velociraptor dans une session Chrome Kasm isolée et jetable.",
+  "friendly_name": "Velociraptor",
+  "description": "Launch Instant Velociraptor in an isolated, temporary Kasm session.",
   "image_src": "velociraptor.svg",
   "categories": [
     "Security",
@@ -18,7 +18,7 @@
     "hostname": "kasm-velociraptor",
     "shm_size": "2gb"
   },
-  "notes": "Mode Instant Velociraptor : admin/password. Le serveur écoute uniquement dans le conteneur et les données disparaissent lorsque la session est supprimée.",
+  "notes": "Velociraptor Instant Mode: admin/password. The server listens only within the container, and the data is deleted when the session ends.",
   "compatibility": [
     {
       "version": "1.19.x",
