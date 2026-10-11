@@ -1,6 +1,6 @@
 {
-  "friendly_name": "Autopsy DFIR Lab",
-  "description": "Autopsy 4.23.1 et The Sleuth Kit 4.15.0 dans un bureau Kasm isolé pour l'analyse d'images disque.",
+  "friendly_name": "Autopsy",
+  "description": "Autopsy 4.23.1 and The Sleuth Kit 4.15.0 in an isolated Kasm environment for disk image analysis.",
   "image_src": "autopsy.svg",
   "categories": [
     "Security",
@@ -19,11 +19,11 @@
     "hostname": "kasm-autopsy",
     "shm_size": "2gb"
   },
-  "notes": "Monter les preuves dans /evidence en lecture seule et les dossiers Autopsy dans /cases en lecture-écriture. Ce workspace ne requiert ni mode privilégié, ni périphérique brut, ni socket Docker.",
+  "notes": "Mount the evidence in /evidence as read-only and the Autopsy folders in /cases as read-write. This workspace does not require privileged mode, raw devices, or a Docker socket.",
   "compatibility": [
     {
       "version": "1.19.x",
-      "image": "ghcr.io/TON_COMPTE_GITHUB/kasm-autopsy:1.19.0",
+      "image": "ghcr.io/shyr0x77/kasm-autopsy:1.19.0",
       "uncompressed_size_mb": 12000
     }
   ]
