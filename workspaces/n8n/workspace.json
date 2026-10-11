@@ -1,0 +1,34 @@
+{
+  "friendly_name": "n8n Automation Lab",
+  "description": "Lance n8n dans une session Chrome Kasm isolée et jetable pour créer des automatisations cyber, DevOps et IA.",
+  "image_src": "n8n.svg",
+  "categories": [
+    "Development",
+    "Automation",
+    "AI"
+  ],
+  "architecture": [
+    "amd64"
+  ],
+  "docker_registry": "https://ghcr.io",
+  "cores": 2,
+  "memory": 4096,
+  "gpu_count": 0,
+  "cpu_allocation_method": "Inherit",
+  "run_config": {
+    "hostname": "kasm-n8n",
+    "shm_size": "2gb",
+    "environment": {
+      "GENERIC_TIMEZONE": "Europe/Paris",
+      "TZ": "Europe/Paris"
+    }
+  },
+  "notes": "n8n écoute uniquement sur 127.0.0.1 dans le conteneur. Créez le compte propriétaire au premier lancement. Les workflows, identifiants et exécutions disparaissent lorsque Kasm supprime la session.",
+  "compatibility": [
+    {
+      "version": "1.19.x",
+      "image": "ghcr.io/TON_COMPTE_GITHUB/kasm-n8n:1.19.0",
+      "uncompressed_size_mb": 5500
+    }
+  ]
+}
