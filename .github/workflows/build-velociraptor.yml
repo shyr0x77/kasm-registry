@@ -1,0 +1,58 @@
+name: Build Kasm Velociraptor
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "1.1"
+    paths:
+      - "docker/velociraptor/**"
+      - ".github/workflows/build-velociraptor.yml"
+  schedule:
+    - cron: "37 4 * * 1"
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Sign in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate image metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/kasm-velociraptor
+          tags: |
+            type=raw,value=1.19.0
+            type=sha,prefix=1.19.0-
+
+      - name: Build and publish image
+        uses: docker/build-push-action@v6
+        with:
+          context: docker/velociraptor
+          file: docker/velociraptor/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            KASM_TAG=1.19.0-rolling-weekly
+            VELOCIRAPTOR_VERSION=0.77.3
+            VELOCIRAPTOR_SHA256=b4699d7ecfd5c0d656d86379e41f0eb34b0f12c3cb45398f1e747f10844d7930
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
