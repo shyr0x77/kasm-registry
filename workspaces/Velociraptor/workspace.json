@@ -22,7 +22,7 @@
   "compatibility": [
     {
       "version": "1.19.x",
-      "image": "ghcr.io/TON_COMPTE_GITHUB/kasm-velociraptor:1.19.0",
+      "image": "ghcr.io/shyr0x77/kasm-velociraptor:1.19.0",
       "uncompressed_size_mb": 5000
     }
   ]
