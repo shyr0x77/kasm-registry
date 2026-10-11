@@ -1,6 +1,6 @@
 {
   "friendly_name": "n8n Automation Lab",
-  "description": "Lance n8n dans une session Chrome Kasm isolée et jetable pour créer des automatisations cyber, DevOps et IA.",
+  "description": "Launch n8n in an isolated, disposable Kasm Chrome session to create cyber, DevOps, and AI automations.",
   "image_src": "n8n.svg",
   "categories": [
     "Development",
@@ -23,11 +23,11 @@
       "TZ": "Europe/Paris"
     }
   },
-  "notes": "n8n écoute uniquement sur 127.0.0.1 dans le conteneur. Créez le compte propriétaire au premier lancement. Les workflows, identifiants et exécutions disparaissent lorsque Kasm supprime la session.",
+  "notes": "n8n listens only on 127.0.0.1 within the container. Create the owner account on first launch. Workflows, credentials, and runs are deleted when Kasm terminates the session.",
   "compatibility": [
     {
       "version": "1.19.x",
-      "image": "ghcr.io/TON_COMPTE_GITHUB/kasm-n8n:1.19.0",
+      "image": "ghcr.io/shyr0x77/kasm-n8n:1.19.0",
       "uncompressed_size_mb": 5500
     }
   ]
