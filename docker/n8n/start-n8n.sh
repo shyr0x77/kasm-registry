@@ -4,6 +4,10 @@ set -Eeuo pipefail
 readonly N8N_URL=http://127.0.0.1:5678
 readonly N8N_DATA_DIR=/home/kasm-user/.n8n
 
+log() {
+  printf '[%s] %s\n' "$(date --iso-8601=seconds)" "$*"
+}
+
 mkdir -p "${N8N_DATA_DIR}"
 chmod 0700 "${N8N_DATA_DIR}"
 
@@ -24,8 +28,11 @@ if [[ -z "${N8N_ENCRYPTION_KEY:-}" ]]; then
   export N8N_ENCRYPTION_KEY
 fi
 
+log "Attente du bureau Kasm"
 /usr/bin/desktop_ready
 
+log "Node $(node --version), n8n $(n8n --version)"
+log "Démarrage de n8n sur ${N8N_URL}"
 /usr/local/bin/n8n start &
 n8n_pid=$!
 
@@ -34,19 +41,30 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
+ready=false
 for _ in $(seq 1 180); do
   if curl --silent --show-error --fail --max-time 2 "${N8N_URL}/healthz" >/dev/null 2>&1; then
-    google-chrome --new-window --start-maximized "${N8N_URL}" \
-      >/tmp/kasm-n8n-chrome.log 2>&1 &
-    wait "${n8n_pid}"
-    exit $?
+    ready=true
+    log "n8n est prêt"
+    break
   fi
 
   if ! kill -0 "${n8n_pid}" 2>/dev/null; then
+    log "n8n s'est arrêté avant de devenir disponible"
     break
   fi
   sleep 2
 done
 
-wait "${n8n_pid}" 2>/dev/null || true
-exit 1
+# Toujours ouvrir Chrome. Si n8n a échoué, la page d'erreur et le journal
+# /tmp/kasm-n8n-startup.log rendent le problème visible au lieu d'un fond vide.
+log "Ouverture de Chrome vers ${N8N_URL} (ready=${ready})"
+google-chrome --new-window --start-maximized "${N8N_URL}" \
+  >/tmp/kasm-n8n-chrome.log 2>&1 &
+
+set +e
+wait "${n8n_pid}"
+n8n_status=$?
+set -e
+log "n8n s'est arrêté avec le code ${n8n_status}"
+exit "${n8n_status}"
