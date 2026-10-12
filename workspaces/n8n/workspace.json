@@ -1,5 +1,5 @@
 {
-  "friendly_name": "n8n Automation Lab",
+  "friendly_name": "n8n",
   "description": "Launch n8n in an isolated, disposable Kasm Chrome session to create cyber, DevOps, and AI automations.",
   "image_src": "n8n.svg",
   "categories": [
